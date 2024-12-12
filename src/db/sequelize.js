@@ -2,10 +2,12 @@ const { Sequelize } = require('sequelize');
 
 const { config } = require('../config/config');
 const setupModels = require('./models');
+const pg = require('pg');
 
 const options = {
   dialect: 'postgres',
   logging: config.isDev ? console.log : false,
+  dialectModule: pg,
 }
 
 if (config.isProd) {
