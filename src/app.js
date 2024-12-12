@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const routerApi = require('./routes');
 const { checkApiKey } = require('./middlewares/auth.handler');
@@ -16,6 +17,14 @@ const createApp = async () => {
 
   app.use(express.json());
   app.use(cors());
+
+  // Serve static files from the "public" directory
+  app.use(express.static(path.join(__dirname, 'public')));
+
+  // Default route to serve index.html
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 
   // require('./utils/auth');
 
