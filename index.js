@@ -1,4 +1,4 @@
-const createApp = require('./app');
+const createApp = require('./src/app');
 
 (async () => {
   const port = process.env.PORT || 3000;
