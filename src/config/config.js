@@ -11,6 +11,8 @@ const config = {
   smtpEmail: process.env.SMTP_EMAIL,
   smtpPassword: process.env.SMTP_PASSWORD,
   openaiApiKey: process.env.OPENAI_API_KEY,
+  mp_access_token: process.env.MP_ACCESS_TOKEN,
+  notification_url: process.env.NOTIFICATION_URL,
 }
 
 module.exports = { config };

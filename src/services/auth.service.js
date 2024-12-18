@@ -88,7 +88,7 @@ class AuthService {
     try {
       const { email, name, picture } = await googleVerify(idToken);
 
-      console.log({ email, name, picture });
+      // console.log({ email, name, picture });
 
       let user = await service.findByEmail(email).catch(() => null);
 
@@ -132,6 +132,7 @@ class AuthService {
 
   async renew(token) {
     try {
+      console.log({ token });
       const { sub: userId } = jwt.verify(token, config.jwtSecret);
   
       const user = await service.findById(userId);

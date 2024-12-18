@@ -1,22 +1,13 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-// const name = Joi.string().min(3).max(15);
-// const price = Joi.number().integer().min(10);
+
 const subject = Joi.string();
 const content = Joi.string();
 const url = Joi.string().uri();
-// const categoryId = Joi.number().integer();
-
-// const price_min = Joi.number().integer();
-// const price_max = Joi.number().integer();
-
-// const limit = Joi.number().integer();
-// const offset = Joi.number().integer();
 
 const title = Joi.string().min(3).max(50);
 const status = Joi.string().valid('pending', 'in-progress', 'completed');
-// const color = Joi.string().hex().length(6);
 
 const favorite = Joi.boolean();
 
@@ -32,7 +23,7 @@ const createEmailDto = Joi.object({
   subject: subject.required(),
   content: content.required(),
   status: status.required(),
-  url: url,
+  url: url.allow(null,''),
   favorite: favorite.default(false),
 });
 
@@ -41,7 +32,7 @@ const updateEmailDto = Joi.object({
   subject: subject,
   content: content,
   status: status,
-  url: url,
+  url: url.allow(null,''),
   favorite: favorite,
 });
 

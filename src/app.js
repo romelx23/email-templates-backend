@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-
+require('./jobs/automation.job'); // Aquí importa las tareas cron
 const routerApi = require('./routes');
 const { checkApiKey } = require('./middlewares/auth.handler');
+const morgan = require("morgan");
 
 const {
   logErrors,
@@ -17,6 +18,9 @@ const createApp = async () => {
 
   app.use(express.json());
   app.use(cors());
+
+  //Morgan
+  app.use(morgan("dev"));
 
   // Serve static files from the "public" directory
   app.use(express.static(path.join(__dirname, 'public')));
