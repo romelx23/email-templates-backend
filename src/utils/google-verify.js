@@ -9,6 +9,8 @@ async function googleVerify(idToken) {
     audience: process.env.GOOGLE_CLIENT_ID, // Your Google OAuth client ID
   });
 
+  console.log({ticket});
+
   const payload = ticket.getPayload(); // Extract user information
 
   // console.log({ payload });

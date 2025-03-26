@@ -45,6 +45,7 @@ router.post('/change-password',
 router.post('/google', async (req, res, next) => {
   try {
     const { id_token: idToken } = req.body;
+    console.log(idToken)
     const result = await service.googleSignin(idToken);
     res.json(result);
   } catch (error) {

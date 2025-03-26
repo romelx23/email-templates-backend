@@ -25,6 +25,8 @@ const createEmailDto = Joi.object({
   status: status.required(),
   url: url.allow(null,''),
   favorite: favorite.default(false),
+  emailPrompt: Joi.string().required(),
+  imagePrompt: Joi.string().required(),
 });
 
 const updateEmailDto = Joi.object({
@@ -34,6 +36,8 @@ const updateEmailDto = Joi.object({
   status: status,
   url: url.allow(null,''),
   favorite: favorite,
+  emailPrompt: Joi.string(),
+  imagePrompt: Joi.string(),
 });
 
 const getEmailDto = Joi.object({
@@ -42,7 +46,7 @@ const getEmailDto = Joi.object({
 
 const generateEmailDto = Joi.object({
   prompt: Joi.string().required(),
-  templateType: Joi.string().required(),
+  // templateType: Joi.string().required(),
 });
 
 const generateImageDto = Joi.object({

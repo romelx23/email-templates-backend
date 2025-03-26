@@ -57,26 +57,32 @@ class EmailService {
 
   // endpoints for generating emails
 
-  async generateEmail(user, { prompt, templateType }) {
+  async generateEmail(user, { prompt }) {
     // Verificar créditos del usuario
     const credits = await this.checkCredits(user.sub);
     if (credits <= 0) throw new Error('Not enough credits');
-
+    console.log({ prompt });
     // Generar contenido
     const response = await cohere.generate({
       model: 'command-r-plus-08-2024',
-      prompt: `Crea un email de tipo ${templateType} basado en la siguiente descripción: ${prompt}`,
-      maxTokens: 200,
+      prompt: `Crea el título y el contenido de un email de basado en la siguiente descripción: ${prompt}, retorna en formato json con las claves title y content`,
+      // maxTokens: 200,
       temperature: 0.7,
     });
 
     if (!response.generations.length) throw new Error('Failed to generate email');
 
-    const generatedText = response.generations[0].text.trim();
+    console.log("response",response.generations[0]);
+
+    const parsedText = JSON.parse(response.generations[0].text); // Convertir string a JSON
+
+    const generatedTitle = parsedText.title.trim();
+    const generatedContent = parsedText.content.trim();
     await this.consumeCredits(user.sub, 1);
 
     return { 
-      content: generatedText,
+      title: generatedTitle,
+      content: generatedContent,
       credits: await this.checkCredits(user.sub)
      };
   }

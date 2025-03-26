@@ -90,7 +90,9 @@ class AuthService {
 
       // console.log({ email, name, picture });
 
-      let user = await service.findByEmail(email).catch(() => null);
+      let user = await service.findByEmail(email)
+      .catch((err) => console.log(err));
+      console.log("===========user==============",{user});
 
       if (!user) {
         // Register new user if not found
